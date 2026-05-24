@@ -144,7 +144,3 @@ If you use this codebase, experimental data, or methodology in your academic pap
   howpublished = {\url{https://github.com/your-username/rerpg}}
 }
 ```
-
----
-
-*2026 Graduation Research Project / Advisor: [Advisor Name] / Researcher: [Your Name]*
