@@ -138,8 +138,3 @@ npm run dev
   howpublished = {\url{https://github.com/your-username/rerpg}}
 }
 ```
-
----
-
-*2026年度 毕业设计研究项目 / 指导教员：[指导教员姓名] / 研究生：[您的姓名]*
-
