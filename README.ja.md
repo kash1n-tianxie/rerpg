@@ -144,7 +144,3 @@ npm run dev
   howpublished = {\url{https://github.com/your-username/rerpg}}
 }
 ```
-
----
-
-*2026年度 卒業研究プロジェクト / 指導教員：[指導教員名] / 研究生：[氏名]*
