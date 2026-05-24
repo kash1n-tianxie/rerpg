@@ -26,6 +26,7 @@ rerpg/
 ├── train_rl.py             # 强化学习 (Detailed 战术奖励模式) 训练脚本
 ├── train_baseline.py       # 强化学习 (Baseline 简单奖励模式) 对比训练脚本
 ├── callbacks.py            # 学术级数据采集与 TensorBoard 日志记录回调
+├── plot_tb_results.py      # [NEW] TensorBoard 数据自动提取与对比绘图脚本
 ├── test_env.py             # 环境验收测试脚本
 ├── test_expert_rewards.py  # 专家奖励判定检查脚本
 ├── test_exploit_fixes.py   # 即死与嘲讽逻辑漏洞测试脚本
@@ -42,6 +43,27 @@ rerpg/
 │   └── RESEARCH_GUIDE.md   # 4. 毕业论文科研实验指南 (指标与图表)
 └── README.md               # 本文文档
 ```
+
+---
+
+## 🎬 演示与可视化成果 (Demos & Visualizations)
+
+### 1. 🎮 网页端游玩与 LLM AI 自动决策演示
+在网页端，您可以体验手动操作，或开启 **AI AUTO** 和 **EVOLUTION** 模式观察 Gemini 模型的实时决策演化（战败后会自动调用 LLM 进行战术分析并生成改进建议）：
+![网页端游玩与 AI 自动决策演示](assets/web_play_demo.gif)
+
+### 2. 🤖 强化学习 (PPO) 智能体战术训练对局演示
+通过 Stable-Baselines3 (PPO) 训练后的 RL 智能体，在不需要人工编写硬编码规则的前提下，自主掌握了完美的坦克嘲讽时间、法师燃魂爆发，以及极限的残血自爆策略：
+![强化学习训练对局演示](assets/rl_agent_demo.gif)
+
+### 3. 📈 TensorBoard 对照训练数据分析图 (PPO Baseline vs. PPO Detailed)
+以下是使用 `train_baseline.py` (极简奖励) 和 `train_rl.py` (专家细化奖励) 对照实验训练过程中的学术指标对比曲线（由 `plot_tb_results.py` 提取生成）：
+![TensorBoard 对照训练数据分析图](assets/tensorboard_comparison.png)
+
+> [!NOTE]
+> **🎓 学术分析与假说验证**：
+> - **单局累计伤害对比 (DPE)**：在训练早期（前 20 万步），`PPO_Detailed`（专家奖励模式）由于频繁的即时战术激励（例如 Ellie 成功牺牲输血奖励），收敛速度显著较快；但它容易陷入**“奖励劫持 (Reward Hacking)”**的局部最优解（AI 倾向于主动卖血让 Healer 输血刷分后早死），导致伤害停留在 2000 点瓶颈期。而 `PPO_Baseline`（极简奖励模式）在纯伤害引导下，经过长线探索，避开了局部奖励陷阱，最终能达到更高的极限累积输出，无限逼近先知伤害上限（DP Oracle Max: 5037.0点）。
+> - **生存回合数对比 (ST)**：随着智能体的迭代，生存回合数稳步上升。反映出 AI 在面对 BOSS 每 4 回合一次的 999 斩杀处决时，成功学会了通过 Arthur 嘲讽及减伤（999点伤害减免70%至299点）来维持全队血线，延长对局长度。
 
 ---
 

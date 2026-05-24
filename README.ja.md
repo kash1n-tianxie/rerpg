@@ -28,6 +28,7 @@ rerpg/
 ├── train_rl.py             # 強化学習（Detailed戦術報酬モード）訓練スクリプト
 ├── train_baseline.py       # 強化学習（Baselineシンプル報酬モード）訓練スクリプト
 ├── callbacks.py            # 学術向けデータ収集＆TensorBoardロガー
+├── plot_tb_results.py      # [NEW] TensorBoard データの自動抽出と可視化プロットスクリプト
 ├── test_env.py             # 環境動作テストスクリプト
 ├── test_expert_rewards.py  # エキスパート報酬の検証スクリプト
 ├── test_exploit_fixes.py   # 脆弱性検知テストスクリプト
@@ -46,6 +47,27 @@ rerpg/
 │   └── MAX_DAMAGE_ANALYSIS.ja.md # 5. DPにより証明された最大ダメージ理論限界
 └── README.ja.md            # 本ドキュメント
 ```
+
+---
+
+## 🎬 デモ動画＆可視化成果 (Demos & Visualizations)
+
+### 1. 🎮 Webフロントエンド戦闘画面＆LLM自動プレイデモ
+React製Web画面上で、手動プレイを体験したり、**AI AUTO** / **EVOLUTION** モードをオンにしてGeminiモデルのリアルタイム意思決定および敗北分析・戦術アドバイス生成を観察したりできます：
+![Webフロントエンド戦闘画面＆LLM自動プレイデモ](assets/web_play_demo.gif)
+
+### 2. 🤖 強化学習 (PPO) エージェントの極限戦術デモ
+Stable-Baselines3 (PPO) で訓練された強化学習エージェントは、人間のルール記述なしに、完璧な防御「嘲諷（Taunt）」と残HPに応じた「自爆」タイミングを自発的に創発・学習します：
+![強化学習エージェント対局デモ](assets/rl_agent_demo.gif)
+
+### 3. 📈 TensorBoard 訓練推移の対照比較グラフ (PPO Baseline vs. PPO Detailed)
+以下は、`train_baseline.py` (シンプル報酬) と `train_rl.py` (エキスパート詳細報酬) の対照実験における学術的な評価指標の比較曲線です（`plot_tb_results.py` により自動抽出・作成）：
+![TensorBoardデータ比較図](assets/tensorboard_comparison.png)
+
+> [!NOTE]
+> **🎓 学術的分析と仮説検証**:
+> - **平均累積ダメージ（DPE）の比較**: 訓練初期（20万ステップまで）は、`PPO_Detailed`（詳細報酬モード）が密な戦術的インセンティブ（例：Ellieによる輸血報酬）により早く収斂しますが、次第に「報酬ハッキング（Reward Hacking）」（AIが即時報酬獲得のために Arthur のHPを意図的に削り、Ellie の輸血を誘発して早期壊滅する）の局所最適解に陥り、ダメージが2000付近のボトルネックで停滞しやすくなります。対照的に、`PPO_Baseline`（シンプル報酬モード）は局所的な罠を回避し、長期的探索を経て理論限界（オラクル：5037.0）に近い極限出力を達成します。
+> - **生存ターン数（ST）の比較**: Arthurがボスの「処刑（Execute）」タイミング（4サイクル目）に合わせて「嘲諷（Taunt）」を行い、ダメージを70%減免（999から299へ）することで、エージェント全体の生存ターン数が向上し、より洗練された連携が学習されます。
 
 ---
 
